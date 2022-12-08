@@ -1,0 +1,30 @@
+version: '3'
+services:
+
+    sim900:
+      image: sim900
+      build:
+        context: .
+        dockerfile: Dockerfile_pisim900
+      container_name: sim900
+      restart: always
+      working_dir: /srv
+      volumes:
+        - ./main:/srv
+        - /sys/class/gpio/gpio33/value:/dev/pwrbtn
+      devices:
+        - /dev/ttyS4:/dev/ttyUSB0
+      env_file:
+        - env_file.env
+
+    ssm:
+      image: ssm
+      build:
+        context: .
+        dockerfile: Dockerfile_ssm
+      container_name: ssm
+      restart: always
+      volumes:
+        - ./main:/app
+      env_file:
+        - env_file.env

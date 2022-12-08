@@ -1,0 +1,9 @@
+FROM alpine
+RUN apk --no-cache add --update python3 py3-pyserial git
+RUN git clone https://github.com/faucamp/python-gsmmodem.git
+RUN git clone https://github.com/PavelZaydinov/python-sim900.git
+RUN cd python-gsmmodem && python3 setup.py install
+RUN cd ../python-sim900 && python3 setup.py install
+RUN cd ../ && rm -rf python-gsmmodem  python-sim900 && apk del git
+ENTRYPOINT ["/srv/docker-entrypoint.py"]
+

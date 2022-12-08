@@ -1,0 +1,4 @@
+FROM alpine
+RUN apk --no-cache add --update python3 py3-aiohttp py3-psycopg2
+ENTRYPOINT ["/app/ssm_server.py"]
+
